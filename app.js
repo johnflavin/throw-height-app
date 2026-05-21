@@ -113,6 +113,7 @@ function buildChart() {
     options: {
       animation: false,
       responsive: true,
+      maintainAspectRatio: false,
       scales: {
         x: { display: false },
         y: {

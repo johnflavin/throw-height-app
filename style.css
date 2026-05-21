@@ -17,6 +17,7 @@
 }
 
 html, body {
+  height: 100%;
   background: var(--bg);
   color: var(--text);
 }
@@ -25,7 +26,6 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   max-width: 480px;
   margin: 0 auto;
-  padding-bottom: max(env(safe-area-inset-bottom), 1.5rem);
 }
 
 /* ── Permission gate ───────────────────────────────────────── */
@@ -75,12 +75,23 @@ h1 {
   max-width: 280px;
 }
 
+/* ── Main layout: fills the viewport, no scroll ────────────── */
+
+#main {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
 /* ── State banner ──────────────────────────────────────────── */
 
 #state-banner {
-  padding: 1.1rem 1rem;
+  flex-shrink: 0;
+  padding: 0.6rem 1rem;
   text-align: center;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 800;
   letter-spacing: 0.18em;
   transition: background-color 0.12s, color 0.12s;
@@ -93,9 +104,10 @@ h1 {
 /* ── Panels ────────────────────────────────────────────────── */
 
 .panel {
+  flex-shrink: 0;
   background: var(--bg-panel);
   border-bottom: 1px solid var(--border);
-  padding: 0.9rem 1rem;
+  padding: 0.5rem 1rem;
 }
 
 /* ── Result row ────────────────────────────────────────────── */
@@ -109,8 +121,8 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.2rem;
-  padding: 0.4rem 0.5rem;
+  gap: 0.15rem;
+  padding: 0.2rem 0.5rem;
 }
 
 .result-item + .result-item {
@@ -118,35 +130,43 @@ h1 {
 }
 
 .result-label {
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--muted);
 }
 
 .result-value {
-  font-size: 1.65rem;
+  font-size: 1.5rem;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   color: var(--blue);
-  min-height: 2.1rem;
-  line-height: 1;
-  display: flex;
-  align-items: center;
+  line-height: 1.1;
 }
 
-/* ── Chart ─────────────────────────────────────────────────── */
+/* ── Chart: grows to fill remaining space ──────────────────── */
+
+#chart-panel {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0.4rem 0.75rem 0.25rem;
+}
 
 #accel-chart {
+  flex: 1;
+  min-height: 0;
   display: block;
   width: 100%;
 }
 
 .chart-note {
-  font-size: 0.72rem;
+  flex-shrink: 0;
+  font-size: 0.65rem;
   color: var(--muted);
   text-align: center;
-  margin-top: 0.5rem;
+  padding-top: 0.2rem;
 }
 
 .legend-blue   { color: var(--blue);   }
@@ -155,24 +175,24 @@ h1 {
 /* ── Data table ────────────────────────────────────────────── */
 
 h2 {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--muted);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.3rem;
 }
 
 .data-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.875rem;
+  font-size: 0.8rem;
 }
 
 .data-table th {
   font-weight: 400;
   color: var(--muted);
   text-align: left;
-  padding: 0.3rem 0;
+  padding: 0.15rem 0;
   width: 58%;
 }
 
@@ -182,7 +202,7 @@ h2 {
 }
 
 .data-table td {
-  padding: 0.3rem 0;
+  padding: 0.15rem 0;
   border-bottom: 1px solid #1f1f1f;
 }
 
@@ -195,7 +215,7 @@ h2 {
 
 .data-table td:nth-child(3) {
   color: var(--muted);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   padding-left: 0.2rem;
   width: 40px;
 }
@@ -207,13 +227,20 @@ h2 {
 
 /* ── History ───────────────────────────────────────────────── */
 
+#history-panel {
+  flex-shrink: 0;
+  /* show at most ~2 rows before scrolling */
+  max-height: calc(0.5rem + 1rem + 2 * 1.6rem + 1rem);
+  overflow-y: auto;
+}
+
 #history-list {
   list-style: none;
 }
 
 #history-list li {
-  padding: 0.4rem 0;
-  font-size: 0.875rem;
+  padding: 0.2rem 0;
+  font-size: 0.8rem;
   font-variant-numeric: tabular-nums;
   border-bottom: 1px solid #1f1f1f;
   color: var(--text);
@@ -222,5 +249,4 @@ h2 {
 #history-list li.empty-note {
   color: var(--muted);
   font-style: italic;
-  font-size: 0.85rem;
 }
