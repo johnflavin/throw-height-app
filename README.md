@@ -53,7 +53,7 @@ GitHub Pages re-deploys automatically on every push. Takes ~30–60 seconds.
 | State banner | **REST** / **MOTION** / **FREEFALL** — changes color and label in real time |
 | Freefall time | Timer ticking up while in freefall state |
 | Est. peak height | Calculated once freefall ends: `h = g·t²/8` |
-| Live chart | Blue: `|accelerationIncludingGravity|` magnitude · Orange: `|acceleration|` magnitude (gravity-removed, if available) |
+| Live chart | Blue: `\|accelerationIncludingGravity\|` magnitude · Orange: `\|acceleration\|` magnitude (gravity-removed, if available) |
 | Reference lines | Dashed blue at 2 m/s² (freefall threshold) · Dashed green at 9.81 m/s² (1 g) |
 | Sensor readings | x/y/z components, both magnitudes, sample interval, 1-second variance |
 | Throw history | Time, freefall duration, and estimated height for each recorded event |
