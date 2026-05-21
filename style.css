@@ -220,6 +220,7 @@ h2 {
 /* ── History ───────────────────────────────────────────────── */
 
 #history-panel {
+  flex: 0 0 5rem;
   overflow-y: auto;
 }
 
