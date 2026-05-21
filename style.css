@@ -1,0 +1,226 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg:        #0f0f0f;
+  --bg-panel:  #171717;
+  --border:    #2a2a2a;
+  --text:      #e0e0e0;
+  --muted:     #777;
+  --blue:      #64b5f6;
+  --green:     #66bb6a;
+  --orange:    #ffa726;
+  --red:       #ef5350;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  max-width: 480px;
+  margin: 0 auto;
+  padding-bottom: max(env(safe-area-inset-bottom), 1.5rem);
+}
+
+/* ── Permission gate ───────────────────────────────────────── */
+
+#permission-gate {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 0.95rem;
+  max-width: 260px;
+  line-height: 1.5;
+}
+
+#grant-btn {
+  padding: 0.9rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 3rem;
+  background: var(--blue);
+  color: #000;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#grant-btn:disabled { opacity: 0.4; cursor: default; }
+
+.error {
+  color: var(--red);
+  font-size: 0.9rem;
+  max-width: 280px;
+}
+
+/* ── State banner ──────────────────────────────────────────── */
+
+#state-banner {
+  padding: 1.1rem 1rem;
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  transition: background-color 0.12s, color 0.12s;
+}
+
+.state-rest     { background: #0c220c; color: var(--green);  }
+.state-motion   { background: #261a00; color: var(--orange); }
+.state-freefall { background: #071a30; color: var(--blue);   }
+
+/* ── Panels ────────────────────────────────────────────────── */
+
+.panel {
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border);
+  padding: 0.9rem 1rem;
+}
+
+/* ── Result row ────────────────────────────────────────────── */
+
+.result-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.result-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.4rem 0.5rem;
+}
+
+.result-item + .result-item {
+  border-left: 1px solid var(--border);
+}
+
+.result-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.result-value {
+  font-size: 1.65rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--blue);
+  min-height: 2.1rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Chart ─────────────────────────────────────────────────── */
+
+#accel-chart {
+  display: block;
+  width: 100%;
+}
+
+.chart-note {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.legend-blue   { color: var(--blue);   }
+.legend-orange { color: var(--orange); }
+
+/* ── Data table ────────────────────────────────────────────── */
+
+h2 {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 0.6rem;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.data-table th {
+  font-weight: 400;
+  color: var(--muted);
+  text-align: left;
+  padding: 0.3rem 0;
+  width: 58%;
+}
+
+.data-table .src {
+  font-size: 0.75em;
+  opacity: 0.7;
+}
+
+.data-table td {
+  padding: 0.3rem 0;
+  border-bottom: 1px solid #1f1f1f;
+}
+
+.data-table td:nth-child(2) {
+  text-align: right;
+  color: var(--blue);
+  font-variant-numeric: tabular-nums;
+  padding-right: 0.4rem;
+}
+
+.data-table td:nth-child(3) {
+  color: var(--muted);
+  font-size: 0.8rem;
+  padding-left: 0.2rem;
+  width: 40px;
+}
+
+.data-table tr.sep th,
+.data-table tr.sep td {
+  border-top: 1px solid #333;
+}
+
+/* ── History ───────────────────────────────────────────────── */
+
+#history-list {
+  list-style: none;
+}
+
+#history-list li {
+  padding: 0.4rem 0;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  border-bottom: 1px solid #1f1f1f;
+  color: var(--text);
+}
+
+#history-list li.empty-note {
+  color: var(--muted);
+  font-style: italic;
+  font-size: 0.85rem;
+}

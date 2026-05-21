@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Throw Height</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Permission gate (full-screen until user taps) -->
+  <section id="permission-gate">
+    <h1>Throw Height</h1>
+    <p class="subtitle">Live accelerometer data and vertical throw height estimation.</p>
+    <button id="grant-btn">Start</button>
+    <p id="permission-error" class="error" hidden></p>
+  </section>
+
+  <!-- Main UI (hidden until permission granted) -->
+  <div id="main" hidden>
+
+    <div id="state-banner" class="state-rest">
+      <span id="state-label">REST</span>
+    </div>
+
+    <!-- Freefall result row -->
+    <section class="panel" id="result-panel">
+      <div class="result-row">
+        <div class="result-item">
+          <div class="result-label">Freefall time</div>
+          <div class="result-value" id="freefall-timer">—</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">Est. peak height</div>
+          <div class="result-value" id="height-result">—</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live chart -->
+    <section class="panel" id="chart-panel">
+      <canvas id="accel-chart"></canvas>
+      <p class="chart-note">
+        <span class="legend-blue">&#9632;</span> |a+g| raw &nbsp;·&nbsp;
+        <span class="legend-orange">&#9632;</span> |a| gravity-removed &nbsp;·&nbsp; 5 s window
+      </p>
+    </section>
+
+    <!-- Intermediate sensor values -->
+    <section class="panel" id="data-panel">
+      <h2>Sensor readings</h2>
+      <table class="data-table">
+        <tbody>
+          <tr>
+            <th>x <span class="src">(a+g)</span></th>
+            <td id="val-x">—</td><td>m/s²</td>
+          </tr>
+          <tr>
+            <th>y <span class="src">(a+g)</span></th>
+            <td id="val-y">—</td><td>m/s²</td>
+          </tr>
+          <tr>
+            <th>z <span class="src">(a+g)</span></th>
+            <td id="val-z">—</td><td>m/s²</td>
+          </tr>
+          <tr class="sep">
+            <th>|a+g| magnitude</th>
+            <td id="val-mag-ig">—</td><td>m/s²</td>
+          </tr>
+          <tr>
+            <th>|a| magnitude <span class="src">(−gravity)</span></th>
+            <td id="val-mag-la">—</td><td>m/s²</td>
+          </tr>
+          <tr class="sep">
+            <th>Sample interval</th>
+            <td id="val-interval">—</td><td>ms</td>
+          </tr>
+          <tr>
+            <th>Variance (1 s window)</th>
+            <td id="val-variance">—</td><td>(m/s²)²</td>
+          </tr>
+          <tr>
+            <th>Freefall threshold</th>
+            <td>2.000</td><td>m/s²</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Throw history -->
+    <section class="panel" id="history-panel">
+      <h2>Throw history</h2>
+      <ul id="history-list">
+        <li class="empty-note">No throws recorded yet.</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3/dist/chartjs-plugin-annotation.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
