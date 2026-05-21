@@ -8,22 +8,13 @@
 </head>
 <body>
 
-  <!-- Permission gate (full-screen until user taps) -->
-  <section id="permission-gate">
-    <h1>Throw Height</h1>
-    <p class="subtitle">Live accelerometer data and vertical throw height estimation.</p>
-    <button id="grant-btn">Start</button>
-    <p id="permission-error" class="error" hidden></p>
-  </section>
-
-  <!-- Main UI (hidden until permission granted) -->
-  <div id="main" hidden>
+  <!-- Data UI — always in the DOM, fills the viewport -->
+  <div id="app">
 
     <div id="state-banner" class="state-rest">
       <span id="state-label">REST</span>
     </div>
 
-    <!-- Freefall result row -->
     <section class="panel" id="result-panel">
       <div class="result-row">
         <div class="result-item">
@@ -37,16 +28,10 @@
       </div>
     </section>
 
-    <!-- Live chart -->
-    <section class="panel" id="chart-panel">
+    <section id="chart-panel">
       <canvas id="accel-chart"></canvas>
-      <p class="chart-note">
-        <span class="legend-blue">&#9632;</span> |a+g| raw &nbsp;·&nbsp;
-        <span class="legend-orange">&#9632;</span> |a| gravity-removed &nbsp;·&nbsp; 5 s window
-      </p>
     </section>
 
-    <!-- Intermediate sensor values -->
     <section class="panel" id="data-panel">
       <h2>Sensor readings</h2>
       <table class="data-table">
@@ -87,7 +72,6 @@
       </table>
     </section>
 
-    <!-- Throw history -->
     <section class="panel" id="history-panel">
       <h2>Throw history</h2>
       <ul id="history-list">
@@ -95,6 +79,14 @@
       </ul>
     </section>
 
+  </div>
+
+  <!-- Intro overlay — covers the data UI until Start is tapped, then removed -->
+  <div id="overlay">
+    <h1>Throw Height</h1>
+    <p class="subtitle">Live accelerometer data and vertical throw height estimation.</p>
+    <button id="grant-btn">Start</button>
+    <p id="permission-error" class="error" hidden></p>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>

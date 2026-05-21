@@ -20,18 +20,29 @@ html, body {
   height: 100%;
   background: var(--bg);
   color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+/* ── Data UI: always full-screen, behind the overlay ───────── */
+
+#app {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
   max-width: 480px;
   margin: 0 auto;
 }
 
-/* ── Permission gate ───────────────────────────────────────── */
+/* ── Intro overlay: sits on top until dismissed ────────────── */
 
-#permission-gate {
-  min-height: 100dvh;
+#overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--bg);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -73,16 +84,6 @@ h1 {
   color: var(--red);
   font-size: 0.9rem;
   max-width: 280px;
-}
-
-/* ── Main layout: fills the viewport, no scroll ────────────── */
-
-#main {
-  height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 /* ── State banner ──────────────────────────────────────────── */
@@ -152,6 +153,8 @@ h1 {
   display: flex;
   flex-direction: column;
   padding: 0.4rem 0.75rem 0.25rem;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border);
 }
 
 #accel-chart {
@@ -160,17 +163,6 @@ h1 {
   display: block;
   width: 100%;
 }
-
-.chart-note {
-  flex-shrink: 0;
-  font-size: 0.65rem;
-  color: var(--muted);
-  text-align: center;
-  padding-top: 0.2rem;
-}
-
-.legend-blue   { color: var(--blue);   }
-.legend-orange { color: var(--orange); }
 
 /* ── Data table ────────────────────────────────────────────── */
 
@@ -228,9 +220,6 @@ h2 {
 /* ── History ───────────────────────────────────────────────── */
 
 #history-panel {
-  flex-shrink: 0;
-  /* show at most ~2 rows before scrolling */
-  max-height: calc(0.5rem + 1rem + 2 * 1.6rem + 1rem);
   overflow-y: auto;
 }
 

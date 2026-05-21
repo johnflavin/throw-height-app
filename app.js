@@ -32,10 +32,9 @@ let chart;
 // ── DOM refs ─────────────────────────────────────────────────────────────────
 
 const el = {
-  permGate:      document.getElementById('permission-gate'),
+  overlay:       document.getElementById('overlay'),
   grantBtn:      document.getElementById('grant-btn'),
   permError:     document.getElementById('permission-error'),
-  main:          document.getElementById('main'),
   stateBanner:   document.getElementById('state-banner'),
   stateLabel:    document.getElementById('state-label'),
   freefallTimer: document.getElementById('freefall-timer'),
@@ -52,7 +51,14 @@ const el = {
 
 // ── Permission / startup ─────────────────────────────────────────────────────
 
+// Guard against double-tap while the iOS permission dialog is open.
+let permissionPending = false;
+
 el.grantBtn.addEventListener('click', async () => {
+  if (permissionPending) return;
+  permissionPending = true;
+  el.grantBtn.disabled = true;
+
   try {
     if (typeof DeviceMotionEvent === 'undefined') {
       throw new Error('DeviceMotion API not available in this browser.');
@@ -66,17 +72,18 @@ el.grantBtn.addEventListener('click', async () => {
     }
     launch();
   } catch (err) {
-    el.grantBtn.disabled = true;
+    permissionPending = false;
+    el.grantBtn.disabled = false;
     el.grantBtn.textContent = 'Unavailable';
     el.permError.textContent = err.message;
     el.permError.hidden = false;
   }
 });
 
+buildChart();
+
 function launch() {
-  el.permGate.hidden = true;
-  el.main.hidden = false;
-  buildChart();
+  el.overlay.style.display = 'none';
   window.addEventListener('devicemotion', onMotion);
 }
 
