@@ -6,6 +6,7 @@ Exploring the science behind "Send Me to Heaven" — live accelerometer data, fr
 
 - [api-research.md](api-research.md) — DeviceMotion API, iOS CoreMotion, freefall physics, deployment options
 - [plan.md](plan.md) — implementation plan (web-first, then native iOS if needed)
+- [observations.md](observations.md) — empirical sensor observations and physics interpretation (proper acceleration, coordinate acceleration, API naming)
 
 ## Live app
 
